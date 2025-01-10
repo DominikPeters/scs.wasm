@@ -1,0 +1,29 @@
+{
+  "name": "scs-solver",
+  "version": "1.0.0",
+  "description": "WebAssembly version of the SCS convex programming solver",
+  "keywords": [
+    "convex",
+    "programming",
+    "optimization"
+  ],
+  "homepage": "https://github.com/DominikPeters/scs.wasm#readme",
+  "bugs": {
+    "url": "https://github.com/DominikPeters/scs.wasm/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DominikPeters/scs.wasm.git"
+  },
+  "license": "MIT",
+  "author": "Dominik Peters",
+  "type": "module",
+  "main": "dist/scs.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "make clean && make wasm",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
