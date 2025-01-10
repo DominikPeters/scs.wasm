@@ -17,8 +17,8 @@
   },
   "license": "MIT",
   "author": "Dominik Peters",
-  "type": "module",
   "main": "dist/scs.js",
+  "module": "dist/scs.mjs",
   "files": [
     "dist"
   ],

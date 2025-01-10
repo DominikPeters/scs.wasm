@@ -34,26 +34,22 @@ WASM_SRC += bindings/embind/scs_bindings.cpp
 wasm: CC = emcc
 wasm: $(WASM_TARGETS)
 
-$(OUT)/scs.wasm $(OUT)/scs.js: $(WASM_SRC)
+EMCC_OPTS = -s WASM=1 \
+			--bind \
+			-g0 \
+			-Os \
+			-s ALLOW_MEMORY_GROWTH=1 \
+			-s MODULARIZE \
+			-s 'EXPORT_NAME="createSCS"'
+
+$(OUT)/scs.wasm $(OUT)/scs.js $(OUT)/scs.mjs: $(WASM_SRC)
 	mkdir -p $(OUT)
-	emcc $(CFLAGS) -o $(OUT)/scs.js $^ \
-		-s WASM=1 \
-		--bind \
-		-g0 \
-		-Os \
-		-s ALLOW_MEMORY_GROWTH=1 \
-		-s MODULARIZE \
-		-s EXPORT_ES6=1 \
-		-s 'EXPORT_NAME="createSCS"'
-		$(LDFLAGS)
+	emcc $(CFLAGS) -o $(OUT)/scs.js $^ $(EMCC_OPTS) $(LDFLAGS)
+	emcc $(CFLAGS) -o $(OUT)/scs.mjs $^ $(EMCC_OPTS) -s EXPORT_ES6=1 $(LDFLAGS)
 
 .PHONY: clean purge
 clean:
 	@rm -rf $(TARGETS) $(SCS_O) $(SCS_INDIR_O) $(SCS_OBJECTS) $(AMD_OBJS) $(LDL_OBJS) $(LINSYS)/*.o $(DIRSRC)/*.o $(INDIRSRC)/*.o $(LINSYS)/gpu/*.o
 	@rm -rf $(OUT)/*.dSYM
-	@rm -rf matlab/*.mex*
-	@rm -rf .idea
-	@rm -rf python/*.pyc
-	@rm -rf python/build
 purge: clean
 	@rm -rf $(OUT)
