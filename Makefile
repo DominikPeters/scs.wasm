@@ -43,6 +43,7 @@ $(OUT)/scs.wasm $(OUT)/scs.js: $(WASM_SRC)
 		-Os \
 		-s ALLOW_MEMORY_GROWTH=1 \
 		-s MODULARIZE \
+		-s EXPORT_ES6=1 \
 		-s 'EXPORT_NAME="createSCS"'
 		$(LDFLAGS)
 
