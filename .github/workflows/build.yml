@@ -16,6 +16,7 @@ jobs:
                 ./emsdk activate latest 
                 source ./emsdk_env.sh
                 cd ..
+                git submodule update --init --recursive
                 make wasm
 
     mac:
@@ -31,4 +32,5 @@ jobs:
                 ./emsdk activate latest 
                 source ./emsdk_env.sh
                 cd ..
+                git submodule update --init --recursive
                 make wasm
