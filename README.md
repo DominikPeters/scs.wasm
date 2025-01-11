@@ -4,7 +4,7 @@
 
 WebAssembly version of the [SCS (Splitting Conic Solver) convex programming solver](https://www.cvxgrp.org/scs/) for JavaScript environments including browsers and Node.js.
 
-<img src="https://github.com/DominikPeters/scs.wasm/blob/master/info/scs_wasm_logo.png" width="450" alt="SCS WebAssembly Logo">
+<img src="https://github.com/DominikPeters/scs.wasm/blob/master/info/scs_wasm_logo_white.png" width="450" alt="SCS WebAssembly Logo">
 
 ## Install
 
