@@ -292,16 +292,30 @@ This prints the solution object to the console:
   s: [ 0, 0, 0.1999999999956145 ],
   info: {
     iter: 100,
+    status: 'solved',
+    linSysSolver: 'sparse-direct-amd-qdldl',
+    statusVal: 1,
+    scaleUpdates: 0,
     pobj: 1.2349999999907928,
     dobj: 1.2350000000001042,
     resPri: 4.390808429506794e-12,
     resDual: 1.4869081633461182e-13,
+    gap: 9.311465734712679e-12,
     resInfeas: 1.3043478260851176,
-    resUnbdd: NaN,
-    solveTime: 0.598459,
-    setupTime: 11.603125
+    resUnbddA: NaN,
+    resUnbddP: NaN,
+    compSlack: 0,
+    setupTime: 2.796667,
+    solveTime: 0.505584,
+    scale: 0.1,
+    rejectedAccelSteps: 0,
+    acceptedAccelSteps: 0,
+    linSysTime: 0.047704000000000024,
+    coneTime: 0.07804600000000002,
+    accelTime: 0
   },
-  status: 1
+  statusVal: 1,
+  status: 'SOLVED'
 }
 ```
 
