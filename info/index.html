@@ -38,6 +38,12 @@
             .axis {
                 stroke: #777;
             }
+            .circle {
+                stroke: #a29fdf;
+            }
+            .circle-center {
+                fill: #a29fdf;
+            }
         }
 
         #solution {
@@ -251,6 +257,7 @@
                 circle.setAttribute("r", r * (500 / 20));
                 circle.setAttribute("stroke", "blue");
                 circle.setAttribute("fill", "rgba(0, 0, 255, 0.05)");
+                circle.classList.add("circle");
                 svg.appendChild(circle);
 
                 // Draw point c
@@ -259,6 +266,7 @@
                 cCircle.setAttribute("cy", c_svgY);
                 cCircle.setAttribute("r", 2);
                 cCircle.setAttribute("fill", "blue");
+                cCircle.classList.add("circle-center");
                 svg.appendChild(cCircle);
 
                 if (r >= 1.5) {
@@ -277,6 +285,7 @@
                     radiusLine.setAttribute("x2", rEnd[0]);
                     radiusLine.setAttribute("y2", rEnd[1]);
                     radiusLine.setAttribute("stroke", "blue");
+                    radiusLine.classList.add("circle");
                     svg.appendChild(radiusLine);
                     // label
                     const rText = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -319,6 +328,7 @@
                 bTick.setAttribute("x2", bTextPos[0] + 3);
                 bTick.setAttribute("y2", bTextPos[1]);
                 bTick.setAttribute("stroke", "black");
+                bTick.classList.add("axis");
                 svg.appendChild(bTick);
 
                 // Draw axes
