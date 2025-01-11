@@ -1,6 +1,6 @@
 {
   "name": "scs-solver",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "WebAssembly version of the SCS convex programming solver",
   "keywords": [
     "convex",
