@@ -214,8 +214,8 @@
                 }
 
                 if (solution.status == "SOLVED") {
-                    const x_sol = solution.x;
-                    const solutionPoint = x_sol.map(x => Math.round(x * 1000) / 1000);
+                    const x_sol = solution.x.map(x => Math.round(x * 1000) / 1000);
+                    solutionPoint = [x_sol[0], x_sol[1]];
 
                     let text = JSON.stringify({
                         status: solution.status,
