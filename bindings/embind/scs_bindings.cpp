@@ -210,17 +210,46 @@ val solve_scs(ScsDataWrapper& data, ScsConeWrapper& cone, const ScsSettings& set
     // Add info to result
     val info_obj = val::object();
     info_obj.set("iter", info->iter);
+    info_obj.set("status", std::string(info->status));
+    info_obj.set("linSysSolver", std::string(info->lin_sys_solver));
+    info_obj.set("statusVal", info->status_val);
+    info_obj.set("scaleUpdates", info->scale_updates);
     info_obj.set("pobj", info->pobj);
     info_obj.set("dobj", info->dobj);
     info_obj.set("resPri", info->res_pri);
     info_obj.set("resDual", info->res_dual);
+    info_obj.set("gap", info->gap);
     info_obj.set("resInfeas", info->res_infeas);
-    info_obj.set("resUnbdd", info->res_unbdd_a);
-    info_obj.set("solveTime", info->solve_time);
+    info_obj.set("resUnbddA", info->res_unbdd_a);
+    info_obj.set("resUnbddP", info->res_unbdd_p);
+    info_obj.set("compSlack", info->comp_slack);
     info_obj.set("setupTime", info->setup_time);
+    info_obj.set("solveTime", info->solve_time);
+    info_obj.set("scale", info->scale);
+    info_obj.set("rejectedAccelSteps", info->rejected_accel_steps);
+    info_obj.set("acceptedAccelSteps", info->accepted_accel_steps);
+    info_obj.set("linSysTime", info->lin_sys_time);
+    info_obj.set("coneTime", info->cone_time);
+    info_obj.set("accelTime", info->accel_time);
     
     solution.set("info", info_obj);
-    solution.set("status", result);
+    solution.set("statusVal", result);
+
+    std::string statusStr;
+    switch (result) {
+        case SCS_INFEASIBLE_INACCURATE: statusStr = "INFEASIBLE_INACCURATE"; break;
+        case SCS_UNBOUNDED_INACCURATE: statusStr = "UNBOUNDED_INACCURATE"; break;
+        case SCS_SIGINT: statusStr = "SIGINT"; break;
+        case SCS_FAILED: statusStr = "FAILED"; break;
+        case SCS_INDETERMINATE: statusStr = "INDETERMINATE"; break;
+        case SCS_INFEASIBLE: statusStr = "INFEASIBLE"; break;
+        case SCS_UNBOUNDED: statusStr = "UNBOUNDED"; break;
+        case SCS_UNFINISHED: statusStr = "UNFINISHED"; break;
+        case SCS_SOLVED: statusStr = "SOLVED"; break;
+        case SCS_SOLVED_INACCURATE: statusStr = "SOLVED_INACCURATE"; break;
+        default: statusStr = "UNKNOWN"; break;
+    }
+    solution.set("status", statusStr);
     
     return solution;
 }
