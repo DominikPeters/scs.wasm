@@ -3,9 +3,10 @@
   "version": "1.0.2",
   "description": "WebAssembly version of the SCS convex programming solver",
   "keywords": [
-    "convex",
-    "programming",
-    "optimization"
+    "convex programming",
+    "optimization",
+    "solver",
+    "wasm"
   ],
   "homepage": "https://github.com/DominikPeters/scs.wasm#readme",
   "bugs": {

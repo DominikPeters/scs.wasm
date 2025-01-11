@@ -4,6 +4,10 @@
 
 WebAssembly version of the [SCS (Splitting Conic Solver) convex programming solver](https://www.cvxgrp.org/scs/) for JavaScript environments including browsers and Node.js.
 
+[**Check out a live demo!**](https://dominikpeters.github.io/scs.wasm/)
+
+Contributions are welcome! In particular, it would be good to add support for compiling with BLAS and LAPACK to solve SDPs.
+
 <img src="https://github.com/DominikPeters/scs.wasm/blob/master/info/scs_wasm_logo_white.png" width="450" alt="SCS WebAssembly Logo">
 
 ## Install
@@ -43,7 +47,7 @@ cd emsdk
 source ./emsdk_env.sh
 ```
 
-Now clone the SCS repo from GitHub and compile the WebAssembly (WASM) 
+Now clone the scs.wasm repo from GitHub and compile the WebAssembly (WASM) 
 version of SCS.
 
 ```bash
@@ -152,17 +156,30 @@ Cones are specified using the following structure:
 
 ```javascript
 const cone = {
-    z: number,     // Number of linear equality constraints (primal zero, dual free)
-    l: number,     // Number of positive orthant cones
-    bu: number[],  // Upper box values (optional)
-    bl: number[],  // Lower box values (optional)
+    z: number,     // Number of zero cones
+    l: number,     // Number of positive (or linear) cones
+    bu: number[],  // Box cone upper values
+    bl: number[],  // Box cone lower values
     bsize: number, // Total length of box cone
-    q: number[],   // Array of second-order cone constraints (optional)
-    qsize: number, // Length of second-order cone array
+    q: number[],   // Array of second-order cone lengths
+    qsize: number, // Number of second-order cones
     ep: number,    // Number of primal exponential cone triples
     ed: number,    // Number of dual exponential cone triples
-    p: number[],   // Array of power cone parameters (optional)
-    psize: number  // Number of power cone triples convergence
+    p: number[],   // Array of power cone parameters
+    psize: number  // Number of power cone triples
+};
+```
+
+
+Note that positive semidefinite cones are not supported in the JavaScript interface.
+
+Usually, not all cone types are used in a problem, in which case the unused 
+cones can be omitted. For example, if only zero and positive cones are used:
+
+```javascript
+const cone = {
+    z: 1,
+    l: 2
 };
 ```
 
@@ -211,29 +228,22 @@ The returned `solution` object contains:
     - `iter`: Number of iterations
     - `pobj`: Primal objective
     - `dobj`: Dual objective
-    - `resPri`: Primal residual
-    - `resDual`: Dual residual
-    - `resInfeas`: Infeasibility residual
-    - `resUnbdd`: Unboundedness measure
     - `solveTime`: Solve time
-    - `setupTime`: Setup time
+    - and [other solver information](https://www.cvxgrp.org/scs/api/info.html)
     
-- `status`: Solution status code
+- `status`: Solution status (e.g. `SOLVED`, `INFEASIBLE`, `UNBOUNDED`, ...)
+- `statusVal`: Solution status value (see SCS [exit flags](https://www.cvxgrp.org/scs/api/exit_flags.html))
 
 ## Examples
 
 These examples assume that you have loaded `scs.js`, either in Node.js via
 
 ```javascript
-const createSCS = require('scs.js'); // if using CommonJS
-import createSCS from 'scs.js'; // if using ES6 modules
+const createSCS = require('scs-solver'); // if using CommonJS
+import createSCS from 'scs-solver'; // if using ES6 modules
 ```
 
-or in the browser via
-
-```html
-<script src="scs.js"></script>
-```
+or in the browser via a script tag.
 
 ### Basic Usage
 
